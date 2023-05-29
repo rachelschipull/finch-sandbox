@@ -48,15 +48,45 @@ app.get('/', async (req, res) => {
         })
 
         const companyData = company.data;
-        console.log(companyData);
+        // console.log(companyData);
 
         const directoryData = directory.data;
-        console.log(directoryData.individuals[0].id)
+        // console.log(directoryData.individuals[0].id)
 
         res.render('index.ejs', {companyData:companyData, directoryData:directoryData})
     } catch (error) {
         console.log(error);
         res.render('error', {error: 'Failed to fetch Finch API Data'})
+    }
+})
+
+app.post('/submit', async (req, res) => {
+    try {
+        const employeeId = req.body.employeeId;
+
+        const data = {
+            requests: [
+                {
+                    individual_id: employeeId
+                }
+            ]
+        }
+        console.log(data)
+
+        const response = await axios.post('https://finch-sandbox-se-interview.vercel.app/api/employer/employment', data, 
+        {
+            headers: {
+                'Authorization': 'Bearer sandbox-token-aa7ff8d3-4db3-461d-8bc5-e35756ce8baf',
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Finch-API-Version': '2020-09-17'
+            },
+        });
+        const responseData = response.data
+        res.render('render', { responseData }); 
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('API request failed')
     }
 })
 

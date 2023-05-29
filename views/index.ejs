@@ -33,17 +33,17 @@
             <li><span>Entity Type:</span> <%= companyData.entity.type %></li>
             <li><span>Primary Email:</span> <%= companyData.primary_email %></li>
             <li><span>Primary Phone:</span> <%= companyData.primary_phone_number %></li>
-            <li><span>Office Location:</span> <%= companyData.locations[0].line1 %> <= companyData.locations[0].city%> <= companyData.locations[0].state%>  </li>
+            <li><span>Office Location:</span> <%= companyData.locations[0].line1 %> <%= companyData.locations[0].city%> <%= companyData.locations[0].state %> <%= companyData.locations[0].postal_code%> </li>
         </ul>
     </div>
 
     <!-- Employee select form -->
     <div class="container">
-        <form>
+        <form action="/submit" method="POST">
             <div class="mb-3">
                 <h2>Select an employee to display their employment information.</h2>
                 
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="employeeId">
                     <option selected>Choose an employee</option>
                     <% for( let i=0; i < directoryData.individuals.length; i++) { %>
                     <option value="<%= directoryData.individuals[i].id %>"> <%= directoryData.individuals[i].first_name %> <%= directoryData.individuals[i].last_name %> </option>
