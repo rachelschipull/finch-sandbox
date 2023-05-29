@@ -1,19 +1,23 @@
 const express = require('express');
 const session = require('express-session');
+const mongoose = require('mongoose');
 const passport = require('passport');
 const BearerStrategy = require('passport-http-bearer').Strategy;
+const MongoStore = require('connect-mongo')
 const app = express();
-const ejs = require('ejs');
 const axios = require('axios');
-// const routes = require('./routes/main');
+const connectDB = require('./config/database')
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000
 
 //Use .env file
-require('dotenv').config()
+require('dotenv').config({path: "./config/.env"})
 
 //Use ejs for views
 app.set('view engine', "ejs");
+
+//Connect Database
+connectDB()
 
 //Set public folder
 app.use(express.static("public"));
@@ -27,6 +31,7 @@ app.use(session({
     secret: 'keyboard-cat',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DB_STRING })
 }));
 
 //Initialize Passport
@@ -73,12 +78,12 @@ app.post('/login', (req, res) => {
     })
         .then(response => {
         const accessToken = response.data.access_token;
-        console.log(accessToken)
+        //console.log(accessToken)
 
         // Store the access token in the session
         req.session.accessToken = accessToken;
 
-        console.log('Access Token:', req.session.accessToken)
+        //console.log('Access Token:', req.session.accessToken)
 
         res.redirect('/protected');
         })
@@ -99,7 +104,7 @@ function attachAccessToken(req, res, next) {
 //Middleware to make function available to whole app
 app.use(attachAccessToken);
 
-//Protected route - directed after login, but bypassed for user if auth working
+//Protected route - directed here from successful auth, user probably won't see it
 app.get('/protected', attachAccessToken, (req, res) => {
 
     // You can use the stored name and email from the session
@@ -219,22 +224,12 @@ app.get('/payment', attachAccessToken, (req, res) => {
 
 app.get('/pay-statement', attachAccessToken, (req, res) => {
     // Check if the access token is present
-    if (accessToken !== req.session.accessToken) {
-        fetch('https://external-api-endpoint', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            // Process the API response
-        })
-        .catch(error => {
-            // Handle API request error
-        });
-    } else {
+    if (req.accessToken) {
+        // Access token is valid, but all users are denied access to this route
         res.status(403).send('Access to this endpoint is forbidden!');
+    } else {
+        // Access token is missing or invalid
+        res.status(401).send('Unauthorized');
     }
 });
 
