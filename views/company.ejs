@@ -8,16 +8,21 @@
     <title>Finch API Project</title>
 </head>
 <body>
+
+    <!-- Navbar Component -->
     <nav class="navbar bg-body-tertiary bg-primary-subtle">
         <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">API SANDBOX!</span>
-          <a class="navbar-brand h1" href="/logout">Logout</a>
+            <span class="navbar-brand mb-0 h1">API SANDBOX!</span>
+            <a class="navbar-brand h1" href="/logout">Logout</a>
         </div>
-      </nav>
+    </nav>
+
+
     <div class="container mt-3 my-3">
     <h1>Finch API Data</h1>
-    <!-- Card here -->
-     <div class="container mx-3">
+
+    <!-- Company Data here -->
+    <div class="container mx-3">
         <h2>Company Data: <em>/employer/company</em></h2>
         <p>Legal Name: <%= companyData.legal_name %></p>
         <ul>
@@ -33,6 +38,7 @@
     <div class="container">
         <form action="/submit" method="POST">
             <div class="mb-3">
+
                 <h2>Select an employee to display their employment information.</h2>
                 
                 <select class="form-select" aria-label="Default select example" name="employeeId">
@@ -41,10 +47,12 @@
                     <option value="<%= directoryData.individuals[i].id %>"> <%= directoryData.individuals[i].first_name %> <%= directoryData.individuals[i].last_name %> </option>
                     <% } %>
                 </select>
+                
                 <button type="submit" class="btn btn-primary my-3">Submit</button>
             </div>
         </form>
     </div>
+
 </div> 
 </body>
 </html>

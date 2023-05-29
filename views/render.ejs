@@ -8,187 +8,194 @@
     <title>Finch API Project</title>
 </head>
 <body>
+    <!-- Nav block -->
     <nav class="navbar bg-body-tertiary bg-primary-subtle">
         <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">API SANDBOX!</span>
-          <a class="navbar-brand h1" href="/logout">Logout</a>
+            <span class="navbar-brand mb-0 h1">API SANDBOX!</span>
+            <a class="navbar-brand h1" href="/logout">Logout</a>
         </div>
-      </nav>
+    </nav>
+
+    <!-- Employee information block -->
     <div class="container mb-3">
 
         <h1>Employee Information Results</h1>
 
-    <div class="container mt-3">
-        <h2>Individual Data</h2>
+        <!-- Individual Data from API -->
+        <div class="container mt-3">
+            <h2>Individual Data</h2>
 
-        <% const individ = indData.responses[0].body; %>
+            <% const individ = indData.responses[0].body; %>
 
-        <div class="info-item">
-            <span class="label">ID:</span>
-            <span class="value"><%= individ.id || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">First Name:</span>
-            <span class="value"><%= individ.first_name || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Last Name:</span>
-            <span class="value"><%= individ.last_name || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Middle Name:</span>
-            <span class="value"><%= individ.middle_name || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Preferred Name:</span>
-            <span class="value"><%= individ.preferred_name || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Emails:</span>
-            <% individ.emails.forEach(email => { %>
-              <div class="value mx-3">
-                <span><%= email.data %></span>
-                <span class="label">(Type: <%= email.type %>)</span>
-              </div>
-            <% }) %>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Phone Numbers:</span>
-            <% individ.phone_numbers.forEach(phone => { %>
-              <div class="value mx-3">
-                <span><%= phone.data %></span>
-                <span class="label">(Type: <%= phone.type %>)</span>
-              </div>
-            <% }) %>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Gender:</span>
-            <span class="value"><%= individ.gender || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Date of Birth:</span>
-            <span class="value"><%= individ.dob || '' %></span>
-          </div>
-      
-          <div class="info-item">
-            <span class="label">Residence:</span>
-            <span class="value">
-              <%= individ.residence?.line1 || '' %>
-              <%= individ.residence?.line2 ? `, ${individ.residence.line2}` : '' %>
-              <%= individ.residence?.city ? `, ${individ.residence.city}` : '' %>
-              <%= individ.residence?.state ? `, ${individ.residence.state}` : '' %>
-              <%= individ.residence?.country ? `, ${individ.residence.country}` : '' %>
-              <%= individ.residence?.postal_code ? `, ${individ.residence.postal_code}` : '' %>
-            </span>
-          </div>
+            <div class="info-item">
+                <span class="label">ID:</span>
+                <span class="value"><%= individ.id || '' %></span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">First Name:</span>
+                <span class="value"><%= individ.first_name || '' %></span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Last Name:</span>
+                <span class="value"><%= individ.last_name || '' %></span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Middle Name:</span>
+                <span class="value"><%= individ.middle_name || '' %></span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Preferred Name:</span>
+                <span class="value"><%= individ.preferred_name || '' %></span>
+            </div>
+        
+            <div class="info-item">
+                <span class="label">Emails:</span>
+                <% individ.emails.forEach(email => { %>
+                <div class="value mx-3">
+                    <span><%= email.data %></span>
+                    <span class="label">(Type: <%= email.type %>)</span>
+                </div>
+                <% }) %>
+            </div>
+        
+            <div class="info-item">
+                <span class="label">Phone Numbers:</span>
+                <% individ.phone_numbers.forEach(phone => { %>
+                <div class="value mx-3">
+                    <span><%= phone.data %></span>
+                    <span class="label">(Type: <%= phone.type %>)</span>
+                </div>
+                <% }) %>
+            </div>
+        
+            <div class="info-item">
+                <span class="label">Gender:</span>
+                <span class="value"><%= individ.gender || '' %></span>
+            </div>
+        
+            <div class="info-item">
+                <span class="label">Date of Birth:</span>
+                <span class="value"><%= individ.dob || '' %></span>
+            </div>
+        
+            <div class="info-item">
+                <span class="label">Residence:</span>
+                <span class="value">
+                <%= individ.residence?.line1 || '' %>
+                <%= individ.residence?.line2 ? `, ${individ.residence.line2}` : '' %>
+                <%= individ.residence?.city ? `, ${individ.residence.city}` : '' %>
+                <%= individ.residence?.state ? `, ${individ.residence.state}` : '' %>
+                <%= individ.residence?.country ? `, ${individ.residence.country}` : '' %>
+                <%= individ.residence?.postal_code ? `, ${individ.residence.postal_code}` : '' %>
+                </span>
+            </div>
         </div>  
+        
+        <!-- Employment Data from API -->
+        <div class="container mt-3">
+            <h2>Employment Data</h2>
+            
+            <% const apidata = empData.responses[0].body; %>
+            
+            <div class="info-item">
+                <span class="label">ID:</span>
+                <span class="value"><%= apidata.id || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">First Name:</span>
+                <span class="value"><%= apidata.first_name || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Last Name:</span>
+                <span class="value"><%= apidata.last_name || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Middle Name:</span>
+                <span class="value"><%= apidata.middle_name || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Title:</span>
+                <span class="value"><%= apidata.title || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Employment Type:</span>
+                <span class="value"><%= apidata.employment?.type || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Employment Subtype:</span>
+                <span class="value"><%= apidata.employment?.subtype || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Manager:</span>
+                <span class="value"><%= apidata.manager || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Department:</span>
+                <span class="value"><%= apidata.department?.name || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Start Date:</span>
+                <span class="value"><%= apidata.start_date || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">End Date:</span>
+                <span class="value"><%= apidata.end_date || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Active:</span>
+                <span class="value"><%= apidata.is_active ? 'Yes' : 'No' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Class Code:</span>
+                <span class="value"><%= apidata.class_code || '' %></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Location:</span>
+                <span class="value">
+                    <%= apidata.location?.line1 || '' %> <%= apidata.location?.city || '' %>, <%= apidata.location?.state || '' %> <%= apidata.location?.postal_code || '' %></span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Income:</span>
+                <span class="value">
+                <%= apidata.income.amount || '' %> <%= apidata.income.currency || '' %> <%= apidata.income.hourly || '' %> </span>
+                <div class="mx-3">  
+                <span>Effective Date: <%= apidata.income.effective_date || '' %></span>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Income History:</span>
+                <span class="value">
+                <%= apidata.income_history.amount || '' %> <%= apidata.income_history.currency || '' %> <%= apidata.income_history.unit || '' %>  </span>
+                <div class="mx-3">
+                <span>Effective Date: <%= apidata.income_history.effective_date || '' %></span>
+                </div>
+            </div>
+        </div>
     
-    <div class="container mt-3">
-        <h2>Employment Data</h2>
-        
-        <% const apidata = empData.responses[0].body; %>
-        
-        <div class="info-item">
-          <span class="label">ID:</span>
-          <span class="value"><%= apidata.id || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">First Name:</span>
-          <span class="value"><%= apidata.first_name || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Last Name:</span>
-          <span class="value"><%= apidata.last_name || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Middle Name:</span>
-          <span class="value"><%= apidata.middle_name || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Title:</span>
-          <span class="value"><%= apidata.title || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Employment Type:</span>
-          <span class="value"><%= apidata.employment?.type || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Employment Subtype:</span>
-          <span class="value"><%= apidata.employment?.subtype || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Manager:</span>
-          <span class="value"><%= apidata.manager || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Department:</span>
-          <span class="value"><%= apidata.department?.name || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Start Date:</span>
-          <span class="value"><%= apidata.start_date || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">End Date:</span>
-          <span class="value"><%= apidata.end_date || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Active:</span>
-          <span class="value"><%= apidata.is_active ? 'Yes' : 'No' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Class Code:</span>
-          <span class="value"><%= apidata.class_code || '' %></span>
-        </div>
-        
-        <div class="info-item">
-          <span class="label">Location:</span>
-          <span class="value">
-            <%= apidata.location?.line1 || '' %> <%= apidata.location?.city || '' %>, <%= apidata.location?.state || '' %> <%= apidata.location?.postal_code || '' %></span>
-        </div>
 
-        <div class="info-item">
-            <span class="label">Income:</span>
-            <span class="value">
-              <%= apidata.income.amount || '' %> <%= apidata.income.currency || '' %> <%= apidata.income.hourly || '' %> </span>
-            <div class="mx-3">  
-            <span>Effective Date: <%= apidata.income.effective_date || '' %></span>
-            </div>
-        </div>
-
-        <div class="info-item">
-            <span class="label">Income History:</span>
-            <span class="value">
-              <%= apidata.income_history.amount || '' %> <%= apidata.income_history.currency || '' %> <%= apidata.income_history.unit || '' %>  </span>
-            <div class="mx-3">
-            <span>Effective Date: <%= apidata.income_history.effective_date || '' %></span>
-            </div>
-        
-        </div>
-    </div>
-    <div>    
+    <!-- Button to return to /company -->
+       
         <a href="/company" class="btn btn-primary mt-3">Back to Company</a>
-
     </div>
+
 </body>
 </html>

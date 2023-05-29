@@ -1,22 +1,15 @@
-Project for Finch API 
+# Project for Finch API 
 
-To get started:
+Uses Finch Sandbox API and endpoints found here: [https://finch-sandbox-se-interview.vercel.app/](https://finch-sandbox-se-interview.vercel.app/)
+
+## To run locally: 
+To get started, fork and clone.
+Install npm modules: 
 
 `npm install`
 
-To get your access token:
+Run locally using: 
 
-First:
-`curl https://finch-sandbox-se-interview.vercel.app/api/sandbox/create \
-  -X POST \
-  -H "Content-Type: application/json" \
-  --data-raw '{
-    "provider": "gusto",
-    "products": ["company", "directory", "individual", "employment", "payment", "pay_statement"]
-  }'`
+`node server.js`
 
-Then use the response to replace the token after "Bearer" in the curl below to begin using the sandbox API:
-
-`curl https://finch-sandbox-se-interview.vercel.app/api/employer/directory \
-  -H 'Authorization: Bearer <your_access_token>' \
-  -H 'Content-Type: application/json'`
+Built with Node.js, Express.js, Passport.js, EJS, and Bootstrap.

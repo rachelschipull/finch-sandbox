@@ -44,16 +44,17 @@ passport.use( new BearerStrategy((token, done) => {
     done(null, user);
 }));
 
+//Index Route
 app.get('/', (req, res) => {
     res.render('index.ejs')
-}
-)
+});
 
+//Login Render Route
 app.get('/login', (req, res) => {
     res.render('login')
-})
+});
 
-//Login and get access_token
+//Get access_token and store it in session
 app.post('/login', (req, res) => {
     const { name, email, provider } = req.body;
 
@@ -87,6 +88,7 @@ app.post('/login', (req, res) => {
         });
 });
 
+//Function to make token available to other routes
 function attachAccessToken(req, res, next) {
     if (req.session.accessToken) {
         req.accessToken = req.session.accessToken;
@@ -94,12 +96,11 @@ function attachAccessToken(req, res, next) {
     next();
 }
 
-// Apply the custom middleware to all routes
+//Middleware to make function available to whole app
 app.use(attachAccessToken);
 
-//Protected route
+//Protected route - directed after login, but bypassed for user if auth working
 app.get('/protected', attachAccessToken, (req, res) => {
-    // Access token is valid, handle the request
 
     // You can use the stored name and email from the session
     const name = req.session.name;
@@ -116,7 +117,7 @@ app.get('/protected', attachAccessToken, (req, res) => {
     }, 2000);
 });
 
-//Request data from Finch API
+//Load main page and request data from Finch API
 app.get('/company', attachAccessToken, async (req, res) => {
     const accessToken = req.accessToken
 
@@ -148,7 +149,7 @@ app.get('/company', attachAccessToken, async (req, res) => {
     }
 })
 
-//Make post requests for employee data
+//Make post requests for employee data on submit
 app.post('/submit', attachAccessToken, async (req, res) => {
     const accessToken = req.accessToken
 
@@ -192,16 +193,17 @@ app.post('/submit', attachAccessToken, async (req, res) => {
     }
 })
 
+//Route for user to logout and end session
 app.get('/logout', attachAccessToken, (req, res) => {
     // Destroy the session to end the user's session
     req.session.destroy(err => {
-      if (err) {
+    if (err) {
         console.error('Error destroying session:', err);
-      }
+    }
       // Redirect the user to the desired logout page or login page
-      res.redirect('/');
+    res.redirect('/');
     });
-  });
+});
 
 //Protect payment info routes
 app.get('/payment', attachAccessToken, (req, res) => {
@@ -225,15 +227,15 @@ app.get('/pay-statement', attachAccessToken, (req, res) => {
             'Content-Type': 'application/json'
             }
         })
-          .then(response => {
+        .then(response => {
             // Process the API response
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             // Handle API request error
-          });
-      } else {
+        });
+    } else {
         res.status(403).send('Access to this endpoint is forbidden!');
-      }
+    }
 });
 
 //Run server on local
