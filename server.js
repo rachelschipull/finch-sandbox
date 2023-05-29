@@ -73,7 +73,7 @@ app.post('/submit', async (req, res) => {
         }
         console.log(data)
 
-        const response = await axios.post('https://finch-sandbox-se-interview.vercel.app/api/employer/employment', data, 
+        const indResponse = await axios.post('https://finch-sandbox-se-interview.vercel.app/api/employer/individual', data, 
         {
             headers: {
                 'Authorization': 'Bearer sandbox-token-aa7ff8d3-4db3-461d-8bc5-e35756ce8baf',
@@ -82,8 +82,19 @@ app.post('/submit', async (req, res) => {
                 'Finch-API-Version': '2020-09-17'
             },
         });
-        const responseData = response.data
-        res.render('render', { responseData }); 
+
+        const empResponse = await axios.post('https://finch-sandbox-se-interview.vercel.app/api/employer/employment', data, 
+        {
+            headers: {
+                'Authorization': 'Bearer sandbox-token-aa7ff8d3-4db3-461d-8bc5-e35756ce8baf',
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Finch-API-Version': '2020-09-17'
+            },
+        });
+        const indData = indResponse.data
+        const empData = empResponse.data
+        res.render('render', { indData, empData  }); 
     } catch (error) {
         console.log(error);
         res.status(500).send('API request failed')
