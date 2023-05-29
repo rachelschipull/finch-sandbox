@@ -8,7 +8,15 @@
     <title>Finch API Project</title>
 </head>
 <body>
-     <!-- Card here -->
+    <nav class="navbar bg-body-tertiary bg-primary-subtle">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">API SANDBOX!</span>
+          <a class="navbar-brand h1" href="/logout">Logout</a>
+        </div>
+      </nav>
+    <div class="container mt-3 my-3">
+    <h1>Finch API Data</h1>
+    <!-- Card here -->
      <div class="container mx-3">
         <h2>Company Data: <em>/employer/company</em></h2>
         <p>Legal Name: <%= companyData.legal_name %></p>
@@ -37,5 +45,6 @@
             </div>
         </form>
     </div>
+</div> 
 </body>
 </html>

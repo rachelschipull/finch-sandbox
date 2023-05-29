@@ -148,6 +148,7 @@ app.get('/company', attachAccessToken, async (req, res) => {
     }
 })
 
+//Make post requests for employee data
 app.post('/submit', attachAccessToken, async (req, res) => {
     const accessToken = req.accessToken
 
@@ -190,6 +191,50 @@ app.post('/submit', attachAccessToken, async (req, res) => {
         res.status(500).send('API request failed')
     }
 })
+
+app.get('/logout', attachAccessToken, (req, res) => {
+    // Destroy the session to end the user's session
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      // Redirect the user to the desired logout page or login page
+      res.redirect('/');
+    });
+  });
+
+//Protect payment info routes
+app.get('/payment', attachAccessToken, (req, res) => {
+    // Check if the access token is present
+    if (req.accessToken) {
+      // Access token is valid, but all users are denied access to this route
+        res.status(403).send('Access to this endpoint is forbidden!');
+    } else {
+      // Access token is missing or invalid
+        res.status(401).send('Unauthorized');
+    }
+});
+
+app.get('/pay-statement', attachAccessToken, (req, res) => {
+    // Check if the access token is present
+    if (accessToken !== req.session.accessToken) {
+        fetch('https://external-api-endpoint', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+            }
+        })
+          .then(response => {
+            // Process the API response
+          })
+          .catch(error => {
+            // Handle API request error
+          });
+      } else {
+        res.status(403).send('Access to this endpoint is forbidden!');
+      }
+});
 
 //Run server on local
 app.listen(process.env.PORT, () =>{

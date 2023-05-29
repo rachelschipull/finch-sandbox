@@ -8,17 +8,21 @@
     <title>API Login</title>
 </head>
 <body>
-    <form action="/login" method="POST">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <select name="provider" required>
-            <option value="gusto">Gusto</option>
-            <option value="bamboohr">BambooHR</option>
-            <option value="justworks">Justworks</option>
-            <option value="paychex_flex">Paychex Flex</option>
-            <option value="workday">Workday</option>
-          </select>
-        <button type="submit">Login</button>
-    </form>
+    <div class="container mx-3 mt-3">
+        <h1 class="mb-3">Login to the Finch API Sandbox</h1>
+        <form action="/login" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <label for="provider" class="form-label">Choose provider</label>
+            <select name="provider" required id="provider">
+                <option value="gusto">Gusto</option>
+                <option value="bamboohr">BambooHR</option>
+                <option value="justworks">Justworks</option>
+                <option value="paychex_flex">Paychex Flex</option>
+                <option value="workday">Workday</option>
+            </select>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 </html>
