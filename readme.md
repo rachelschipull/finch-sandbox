@@ -12,4 +12,6 @@ Run locally using:
 
 `node server.js`
 
+Add mongoDB `DB_STRING` to .env to save sessions.
+
 Built with Node.js, Express.js, Passport.js, EJS, and Bootstrap.
