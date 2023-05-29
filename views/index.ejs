@@ -19,39 +19,8 @@
             <h1>
                 Welcome to The Finch Sandbox API
             </h1>
-            <span>Have fun!</span>
-            <button type="submit"> Login </button>
+            <a href="/login" class="btn btn-primary mt-3">Login</a>
         </div>
-    </div>
-
-    <!-- Card here -->
-    <div class="container mx-3">
-        <h2>Company Data: <em>/employer/company</em></h2>
-        <p>Legal Name: <%= companyData.legal_name %></p>
-        <ul>
-            <li><span>EIN</span> <%= companyData.ein%> </li>
-            <li><span>Entity Type:</span> <%= companyData.entity.type %></li>
-            <li><span>Primary Email:</span> <%= companyData.primary_email %></li>
-            <li><span>Primary Phone:</span> <%= companyData.primary_phone_number %></li>
-            <li><span>Office Location:</span> <%= companyData.locations[0].line1 %> <%= companyData.locations[0].city%> <%= companyData.locations[0].state %> <%= companyData.locations[0].postal_code%> </li>
-        </ul>
-    </div>
-
-    <!-- Employee select form -->
-    <div class="container">
-        <form action="/submit" method="POST">
-            <div class="mb-3">
-                <h2>Select an employee to display their employment information.</h2>
-                
-                <select class="form-select" aria-label="Default select example" name="employeeId">
-                    <option selected>Choose an employee</option>
-                    <% for( let i=0; i < directoryData.individuals.length; i++) { %>
-                    <option value="<%= directoryData.individuals[i].id %>"> <%= directoryData.individuals[i].first_name %> <%= directoryData.individuals[i].last_name %> </option>
-                    <% } %>
-                </select>
-                <button type="submit" class="btn btn-primary my-3">Submit</button>
-            </div>
-        </form>
     </div>
 
     <!-- Employee info display -->
