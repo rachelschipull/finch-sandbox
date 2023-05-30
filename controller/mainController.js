@@ -10,7 +10,7 @@ module.exports = {
         try {
         const response = await axios.get('https://finch-sandbox-se-interview.vercel.app/api/employer/company', {
             headers: {
-                'Authorization': 'Bearer sandbox-token-aa7ff8d3-4db3-461d-8bc5-e35756ce8baf',
+                'Authorization': 'Bearer <token>',
                 'Content-type': 'application/json'
                 }
         }); 
