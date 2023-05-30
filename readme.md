@@ -10,7 +10,7 @@ Install npm modules:
 
 Run locally using: 
 
-`node server.js`
+`node --watch server.js` on Node v19+ or `npm start` if you prefer to use nodemon.
 
 Add mongoDB `DB_STRING` to .env to save sessions.
 

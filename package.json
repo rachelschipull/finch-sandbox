@@ -11,7 +11,11 @@
     "express-session-logger": "^0.0.5",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.1",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-http-bearer": "^1.0.1"
+  },
+  "scripts":{
+    "start": "nodemon server.js"
   }
 }

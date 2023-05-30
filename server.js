@@ -70,7 +70,7 @@ app.post('/login', (req, res) => {
     // Make the POST request to the API to obtain the access token
     axios.post('https://finch-sandbox-se-interview.vercel.app/api/sandbox/create', {
         provider: provider,
-        products: ['company', 'directory', 'individual', 'employment', 'payment', 'pay_statement']
+        products: ['company', 'directory', 'individual', 'employment']
     }, {
         headers: {
             "Content-Type": "application/json"
@@ -78,7 +78,7 @@ app.post('/login', (req, res) => {
     })
         .then(response => {
         const accessToken = response.data.access_token;
-        //console.log(accessToken)
+        console.log(accessToken)
 
         // Store the access token in the session
         req.session.accessToken = accessToken;
@@ -210,7 +210,7 @@ app.get('/logout', attachAccessToken, (req, res) => {
     });
 });
 
-//Protect payment info routes
+//Protect payment info routes - these don't exist so user should hit "Unauthorized"
 app.get('/payment', attachAccessToken, (req, res) => {
     // Check if the access token is present
     if (req.accessToken) {
@@ -222,7 +222,8 @@ app.get('/payment', attachAccessToken, (req, res) => {
     }
 });
 
-app.get('/pay-statement', attachAccessToken, (req, res) => {
+//This route doesn't exist so user should hit "Unauthorized"
+app.post('/pay-statement', attachAccessToken, (req, res) => {
     // Check if the access token is present
     if (req.accessToken) {
         // Access token is valid, but all users are denied access to this route
